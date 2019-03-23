@@ -12,7 +12,13 @@
     "node": "8.15.1"
   },
   "dependencies": {
-    "proton-native": "latest"
+    "proton-native": "latest",
+    "react-redux": "^6.0.1",
+    "redux": ">=4 <5",
+    "redux-logger": "^3.0.6",
+    "redux-observable": "^1.0.0",
+    "rxjs": ">=6.0.0-beta.0 <7",
+    "rxjs-compat": "^6.4.0"
   },
   "devDependencies": {
     "electron-builder": "latest",
