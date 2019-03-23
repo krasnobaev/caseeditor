@@ -1,5 +1,11 @@
 import { connect } from 'react-redux';
-import { actionLoadFile, actionSaveFile, actionChangeCase } from '../ducks/main';
+import {
+  actionLoadFile,
+  actionSaveFile,
+  actionChangeCase,
+  actionEditInCase,
+  actionEditOutCase,
+} from '../ducks/main';
 import { Case } from '../components/Case.js';
 import { CaseList } from '../components/CaseList.js';
 import { ControlPanel } from '../components/ControlPanel.js';
@@ -9,7 +15,6 @@ const mapStateToProps = (_state, own) => {
 
   let { curcase } = state;
   let cases = state.cases || [];
-  console.dir(['mapStateToProps', state, own]);
   let ocurcase = cases[curcase] || {desc: '', in: '', out: ''};
   let curcasedesc = ocurcase.desc;
   let curcasein = ocurcase.in;
@@ -38,6 +43,17 @@ const mapDispatchToProps = (dispatch, own) => {
     },
     onCaseSelect: (icase) => {
       dispatch(actionChangeCase(icase))
+    },
+    onCaseEdit: (stype, newvalue) => {
+      console.dir(['onCaseEdit', own]);
+
+      if (stype === 'in') {
+        dispatch(actionEditInCase(newvalue));
+      } else if (stype === 'out') {
+        dispatch(actionEditOutCase(newvalue));
+      } else {
+        console.warn('unkown case type');
+      }
     },
   }
 }
