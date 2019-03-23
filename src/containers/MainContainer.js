@@ -4,9 +4,24 @@ import { Case } from '../components/Case.js';
 import { CaseList } from '../components/CaseList.js';
 import { ControlPanel } from '../components/ControlPanel.js';
 
-const mapStateToProps = (state, own) => {
+const mapStateToProps = (_state, own) => {
+  let state = _state.MainState || {};
+
+  let { curcase } = state;
+  let cases = state.cases || [];
+  console.dir(['mapStateToProps', state, own]);
+  let ocurcase = cases[curcase] || {desc: '', in: '', out: ''};
+  let curcasedesc = ocurcase.desc;
+  let curcasein = ocurcase.in;
+  let curcaseout = ocurcase.out;
+
   return {
-    state: state.MainState,
+    state,
+
+    cases,
+    curcasedesc,
+    curcasein,
+    curcaseout,
   }
 }
 
@@ -14,16 +29,15 @@ const mapDispatchToProps = (dispatch, own) => {
   return {
     dispatch,
     onFileLoad: () => {
-      console.log('file load dispatched');
+      console.dir(['curfile', own]);
       dispatch(actionLoadFile());
     },
     onFileSave: () => {
-      console.log('file save dispatched');
+      console.dir(['curloadedfile', own.curloadedfile]);
       dispatch(actionSaveFile());
     },
-    onCaseSelect: () => {
-      console.log('case select dispatched');
-      dispatch(actionChangeCase())
+    onCaseSelect: (icase) => {
+      dispatch(actionChangeCase(icase))
     },
   }
 }

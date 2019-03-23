@@ -15,9 +15,13 @@ export class CaseList extends Component {
   render() {
     return (
       <Picker onSelect={this.props.onCaseSelect} stretchy={false}>
-        <Picker.Item>Case 1</Picker.Item>
-        <Picker.Item>Case 2</Picker.Item>
-        <Picker.Item>Case 3</Picker.Item>
+        {this.props.state.cases.map((oCase, i) => {
+          return (
+            <Picker.Item key={i}>{
+              `case #${i+1}` + (oCase.description ? `: ${oCase.description}`:'')
+            }</Picker.Item>
+          );
+        })}
       </Picker>
     )
   }

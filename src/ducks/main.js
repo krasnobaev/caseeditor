@@ -21,8 +21,8 @@ export const actionLoadFile = (sFileName) => {
 export const actionSaveFile = (sFileBody) => {
   return { type: SAVE_FILE, sFileBody };
 }
-export const actionChangeCase = (sCase) => {
-  return { type: CHANGE_CASE, sCase };
+export const actionChangeCase = (iNewCurCase) => {
+  return { type: CHANGE_CASE, iNewCurCase };
 }
 
 /* epics */
@@ -45,16 +45,23 @@ export const rootEpic = (action$, store) =>
 
 const MainState = (state = {}, {
   type,
+
+  curfile,
+  iNewCurCase,
 } = action) => {
   switch (type) {
     case INITIALIZE_APP:
       return Object.assign({}, state, oInitialState);
     case LOAD_FILE:
-      return Object.assign({}, state);
+      return Object.assign({}, state, {
+        curloadedfile: curfile,
+      });
     case SAVE_FILE:
       return Object.assign({}, state);
     case CHANGE_CASE:
-      return Object.assign({}, state);
+      return Object.assign({}, state, {
+        curcase: iNewCurCase,
+      });
 
     default:
       return state;

@@ -7,8 +7,17 @@ import { rootEpic, rootReducer } from './main';
 export const getInitializedStore = () => {
   return {
     MainState: {
-      file: './tests.cases',
-      cases: [],
+      curfile: './tests.cases',
+      curloadedfile: '',
+      curcase: 0,
+      cases: [{
+        description: 'somcase',
+        in: '1\n2\n3\n',
+        out: '8',
+      }, {
+        in: '4\n5\n6\n',
+        out: '3',
+      }],
     },
   };
 };

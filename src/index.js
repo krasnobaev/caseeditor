@@ -28,7 +28,7 @@ class Main extends Component {
             <Box>
               <VisibleControlPanel />
               <VisibleCaseList />
-              <VisibleCase case={'1\n2\n3'} result={'3'}/>
+              <VisibleCase />
             </Box>
           </Window>
         </App>

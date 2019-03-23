@@ -13,11 +13,11 @@ export class Case extends Component {
       <Box vertical={false}>
         <Box>
           <Text stretchy={false}>IN</Text>
-          <TextInput>{this.props.case}</TextInput>
+          <TextInput onChange={this.props.onChange}>{this.props.curcasein}</TextInput>
         </Box>
         <Box>
           <Text stretchy={false}>OUT</Text>
-          <TextInput>{this.props.result}</TextInput>
+          <TextInput onChange={this.props.onChange}>{this.props.curcaseout}</TextInput>
         </Box>
       </Box>
     )
