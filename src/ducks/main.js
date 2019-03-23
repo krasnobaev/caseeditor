@@ -9,6 +9,7 @@ const INITIALIZE_APP = 'INITIALIZE_APP';
 const LOAD_FILE = 'LOAD_FILE';
 const SAVE_FILE = 'SAVE_FILE';
 const CHANGE_CASE = 'CHANGE_CASE';
+const CHANGE_CASE_ACTUAL = 'CHANGE_CASE_ACTUAL';
 const UPDATE_IN_CASE = 'UPDATE_IN_CASE';
 const UPDATE_OUT_CASE = 'UPDATE_OUT_CASE';
 
@@ -26,6 +27,9 @@ export const actionSaveFile = (sFile, sData) => {
 export const actionChangeCase = (iNewCurCase) => {
   return { type: CHANGE_CASE, iNewCurCase };
 }
+export const actionChangeCaseActual = (iNewCurCase) => {
+  return { type: CHANGE_CASE_ACTUAL, iNewCurCase };
+}
 export const actionEditInCase = (sNewCaseValue) => {
   return { type: UPDATE_IN_CASE, sNewCaseValue };
 }
@@ -42,9 +46,15 @@ const initializeEpic = (action$, store) => action$
     // actionLoadFile({}),
   ]);
 
+const changeCaseEpic = (action$, store) => action$
+  .ofType(CHANGE_CASE)
+  .concatMap(action => [
+    actionStoreCase(store.value.MainState.curcasecopy),
+    actionChangeCaseActual(action.iNewCurCase),
+  ]);
 // no need for BehaviorSubject actually since ATB mechanism done in simple epics
 const rootEpic$ = new BehaviorSubject(combineEpics(
-  initializeEpic
+  initializeEpic, changeCaseEpic,
 ));
 export const rootEpic = (action$, store) =>
   rootEpic$.mergeMap(epic => epic(action$, store));
@@ -57,9 +67,14 @@ const MainState = (state = {}, {
   curfile,
   iNewCurCase,
   sNewCaseValue,
+  oNewCase,
 } = action) => {
   let { curcase } = state;
   let cases = state.cases || [];
+
+  if (oNewCase) {
+    cases[curcase] = oNewCase;
+  }
 
   if (sNewCaseValue) {
     if (type === UPDATE_IN_CASE) {
@@ -80,15 +95,15 @@ const MainState = (state = {}, {
       });
     case SAVE_FILE:
       return Object.assign({}, state);
-    case CHANGE_CASE:
+    case CHANGE_CASE_ACTUAL:
       return Object.assign({}, state, {
+        curcasecopy: cases[iNewCurCase],
         curcase: iNewCurCase,
       });
     case UPDATE_IN_CASE:
     case UPDATE_OUT_CASE:
-      return Object.assign({}, state, {
-        cases,
-      });
+    case SAVE_CASE:
+      return Object.assign({}, state, cases);
 
     default:
       return state;

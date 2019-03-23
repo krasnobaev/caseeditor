@@ -10,6 +10,11 @@ export const getInitializedStore = () => {
       curfile: './tests.cases',
       curloadedfile: '',
       curcase: 0,
+      curcasecopy: {
+        description: 'somcase',
+        in: '1\n2\n3\n',
+        out: '8',
+      },
       cases: [{
         description: 'somcase',
         in: '1\n2\n3\n',
@@ -26,7 +31,7 @@ let state = getInitializedStore();
 const epicMiddleware = createEpicMiddleware();
 
 export const configureStore = (initialState = state) => {
-  return createStore(
+  let store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(
@@ -34,5 +39,8 @@ export const configureStore = (initialState = state) => {
       logger
     )
   );
+
+  epicMiddleware.run(rootEpic);
+
+  return store;
 };
-// epicMiddleware.run(rootEpic);

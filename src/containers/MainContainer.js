@@ -15,10 +15,10 @@ const mapStateToProps = (_state, own) => {
 
   let { curcase } = state;
   let cases = state.cases || [];
-  let ocurcase = cases[curcase] || {desc: '', in: '', out: ''};
-  let curcasedesc = ocurcase.desc;
-  let curcasein = ocurcase.in;
-  let curcaseout = ocurcase.out;
+  let curcasecopy = cases[curcase] || {};
+  let curcasedesc = curcasecopy.desc || '';
+  let curcasein = curcasecopy.in || '';
+  let curcaseout = curcasecopy.out || '';
 
   return {
     state,
@@ -38,7 +38,6 @@ const mapDispatchToProps = (dispatch, own) => {
       dispatch(actionLoadFile());
     },
     onFileSave: () => {
-      console.dir(['curloadedfile', own.curloadedfile]);
       dispatch(actionSaveFile());
     },
     onCaseSelect: (icase) => {
