@@ -33,16 +33,16 @@ const mapStateToProps = (_state, own) => {
 const mapDispatchToProps = (dispatch, own) => {
   return {
     dispatch,
-    onFileLoad: () => {
+    onFileLoad () {
       dispatch(actionLoadFile());
     },
-    onFileSave: () => {
+    onFileSave () {
       dispatch(actionSaveFile());
     },
-    onCaseSelect: (icase) => {
+    onCaseSelect (icase) {
       dispatch(actionChangeCase(icase))
     },
-    onCaseEdit: (stype, newvalue) => {
+    onCaseEdit (stype, newvalue) {
       if (stype === 'in') {
         dispatch(actionEditInCase(newvalue));
       } else if (stype === 'out') {
