@@ -7,7 +7,6 @@ import {
   actionEditOutCase,
 } from '../ducks/main';
 import { Case } from '../components/Case.js';
-import { CaseList } from '../components/CaseList.js';
 import { ControlPanel } from '../components/ControlPanel.js';
 
 const mapStateToProps = (_state, own) => {
@@ -24,6 +23,7 @@ const mapStateToProps = (_state, own) => {
     state,
 
     cases,
+    curcase,
     curcasedesc,
     curcasein,
     curcaseout,
@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch, own) => {
   return {
     dispatch,
     onFileLoad: () => {
-      console.dir(['curfile', own]);
       dispatch(actionLoadFile());
     },
     onFileSave: () => {
@@ -44,8 +43,6 @@ const mapDispatchToProps = (dispatch, own) => {
       dispatch(actionChangeCase(icase))
     },
     onCaseEdit: (stype, newvalue) => {
-      console.dir(['onCaseEdit', own]);
-
       if (stype === 'in') {
         dispatch(actionEditInCase(newvalue));
       } else if (stype === 'out') {
@@ -61,11 +58,6 @@ export const VisibleCase = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Case)
-
-export const VisibleCaseList = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CaseList)
 
 export const VisibleControlPanel = connect(
   mapStateToProps,

@@ -27,7 +27,6 @@ class Main extends Component {
           <Window title="test cases editor" size={{w: 300, h: 300}} menuBar={false}>
             <Box>
               <VisibleControlPanel />
-              <VisibleCaseList />
               <VisibleCase />
             </Box>
           </Window>
