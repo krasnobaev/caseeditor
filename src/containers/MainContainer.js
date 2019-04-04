@@ -5,6 +5,9 @@ import {
   actionChangeCase,
   actionEditInCase,
   actionEditOutCase,
+  actionCreateNewCase,
+  actionDuplicateCase,
+  actionDeleteCase,
 } from '../ducks/main';
 import { Case } from '../components/Case.js';
 import { ControlPanel } from '../components/ControlPanel.js';
@@ -50,6 +53,15 @@ const mapDispatchToProps = (dispatch, own) => {
       } else {
         console.warn('unkown case type');
       }
+    },
+    onDuplicateCase () {
+      dispatch(actionCreateNewCase());
+    },
+    onNewCase () {
+      dispatch(actionDuplicateCase());
+    },
+    onDeleteCase () {
+      dispatch(actionDeleteCase());
     },
   }
 }

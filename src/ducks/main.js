@@ -19,6 +19,9 @@ const FILELOAD_UNSUCCESSFULL = 'FILELOAD_UNSUCCESSFULL';
 const FILESAVE_SUCCESSFULL = 'FILESAVE_SUCCESSFULL';
 const FILESAVE_UNSUCCESSFULL = 'FILESAVE_UNSUCCESSFULL';
 const SAVE_CASE = 'SAVE_CASE';
+const NEW_CASE = 'NEW_CASE';
+const DUPLICATE_CASE = 'DUPLICATE_CASE';
+const DELETE_CASE = 'DELETE_CASE';
 
 /* action creators */
 
@@ -45,6 +48,15 @@ export const actionEditOutCase = (sNewCaseValue) => {
 }
 export const actionStoreCase = (oNewCase) => {
   return { type: SAVE_CASE, oNewCase };
+}
+export const actionCreateNewCase = () => {
+  return { type: NEW_CASE };
+}
+export const actionDuplicateCase = () => {
+  return { type: DUPLICATE_CASE };
+}
+export const actionDeleteCase = () => {
+  return { type: DELETE_CASE };
 }
 
 /* epics */
@@ -175,6 +187,31 @@ const MainState = (state = {}, {
         curcase: 0,
         curcasecopy: {},
         cases: [{}],
+      });
+    case NEW_CASE:
+      cases.push({
+        description: '',
+        'in': '',
+        out: '',
+      });
+
+      return Object.assign({}, state, {
+        curcase: cases.length - 1,
+        cases,
+      });
+    case DUPLICATE_CASE:
+      cases.push(cases[curcase]);
+
+      return Object.assign({}, state, {
+        curcase: cases.length,
+        cases,
+      });
+    case DELETE_CASE:
+      cases.splice(curcase);
+
+      return Object.assign({}, state, {
+        curcase: cases.length,
+        cases,
       });
 
     default:

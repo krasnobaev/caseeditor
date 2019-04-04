@@ -20,19 +20,23 @@ export class ControlPanel extends Component {
           <Button stretchy={false} onClick={this.props.onFileLoad}>Load</Button>
           <Button stretchy={false} onClick={this.props.onFileSave}>Save</Button>
         </Box>
-        <Picker
-            selected={this.props.state.curcase}
-            onSelect={this.props.onCaseSelect}
-            stretchy={false}
-        >
-          {this.props.cases.map((oCase, i) => {
-            return (
-              <Picker.Item key={i}>{
-                `case #${i+1}` + (oCase.description ? `: ${oCase.description}` : '')
-              }</Picker.Item>
-            );
-          })}
-        </Picker>
+        <Box stretchy={true} vertical={false}>
+          <Button stretchy={false} onClick={this.props.onDeleteCase}>Del</Button>
+          <Picker
+              selected={this.props.state.curcase}
+              onSelect={this.props.onCaseSelect}
+          >
+            {this.props.state.cases.map((oCase, i) => {
+              return (
+                <Picker.Item key={i}>{
+                  `case #${i+1}` + (oCase.description ? `: ${oCase.description}` : '')
+                }</Picker.Item>
+              );
+            })}
+          </Picker>
+          <Button stretchy={false} onClick={this.props.onDuplicateCase}>Dup</Button>
+          <Button stretchy={false} onClick={this.props.onNewCase}>New</Button>
+        </Box>
       </Box>
     )
   }

@@ -1,5 +1,5 @@
 {
-  "name": "clitestrunner",
+  "name": "caseeditor",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -21,11 +21,13 @@
     "rxjs-compat": "^6.4.0"
   },
   "devDependencies": {
-    "electron-builder": "latest",
-    "babel-cli": "latest",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "latest",
+    "babel-preset-react": "latest",
     "babel-preset-stage-0": "latest",
-    "babel-preset-react": "latest"
+    "electron-builder": "latest"
   },
   "build": {
     "protonNodeVersion": "current",
